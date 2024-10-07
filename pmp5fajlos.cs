@@ -75,7 +75,7 @@ namespace pmp5fajlos
         }
         static void Nhanes(string[] text)
         {
-            CultureInfo culture = new CultureInfo("en-US");
+            CultureInfo culture = CultureInfo.InvariantCulture;
             int[] id = new int[text.Length-1];
             string[] period = new string[text.Length-1];
             byte[] gender = new byte[text.Length-1];
@@ -88,7 +88,7 @@ namespace pmp5fajlos
                 string[] attributes = row.Split(',');
                 id[index] = int.Parse(attributes[0]);
                 period[index] = attributes[1];
-                gender[index] = byte.Parse(attributes[2], culture);
+                gender[index] = (byte)double.Parse(attributes[2], culture);
                 ages[index] = double.Parse(attributes[3], culture);
                 bmi[index] = double.Parse(attributes[4], culture);
                 bloodSugarLevel[index] = double.Parse(attributes[5], culture);
@@ -115,7 +115,7 @@ namespace pmp5fajlos
             foreach (double i in bloodSugarLevel)
                 if (i > 5.6) highSBL++;
             highSBL /= bloodSugarLevel.Length;
-            Console.WriteLine("Avg bmi: " + avgBmi);
+            Console.WriteLine("Avg bmi: " + avgBmi.ToString("##.##"));
             Console.WriteLine("High BloodSugarLevel %: " + highSBL.ToString("P2"));
             Console.WriteLine("Highest Bmi person's BSL: " + bloodSugarLevel[Array.IndexOf(bmi, highestBmi)].ToString("#0.0"));
             Console.WriteLine("Overweight people avg age: " + (overweightAges/overweightCount).ToString("##.##"));
